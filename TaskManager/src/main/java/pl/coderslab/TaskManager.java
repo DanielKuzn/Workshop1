@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskManager {
@@ -40,12 +41,28 @@ public class TaskManager {
             }
             inputOption = scan.next();
             switch (inputOption) {
-                case "add" -> System.out.println("Add task"); //addTask();
+                case "add" -> addTask();
                 case "remove" -> System.out.println("Remove task"); //remove();
-                case "list" -> System.out.println("List task"); //showTaskList();
+                case "list" -> showTaskList();
                 case "exit" -> System.out.println("Exit program"); //exitProgram();
                 default -> System.out.println("Please select a correct option.");
             }
+        }
+    }
+    public static void addTask() {
+        tasks = Arrays.copyOf(tasks, tasks.length + 1);
+        tasks[tasks.length - 1] = new String[3];
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please add task description:");
+        tasks[tasks.length - 1][0] = scan.nextLine();
+        System.out.println("Please add task due date:");
+        tasks[tasks.length - 1][1] = scan.nextLine();
+        System.out.println("Is your task is important (true/false):");
+        tasks[tasks.length - 1][2] = scan.nextLine();
+    }
+    public static void showTaskList() {
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.println(i + " : " + tasks[i][0] + " " + tasks[i][1] + " " + tasks[i][2]);
         }
     }
 }
