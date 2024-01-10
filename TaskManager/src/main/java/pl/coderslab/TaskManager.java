@@ -1,48 +1,50 @@
 package pl.coderslab;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class TaskManager {
+    static final String FILE_NAME = "tasks.csv";
     static String[][] tasks;
     public static void main(String[] args) {
-        loadData();
+        tasks = loadData(FILE_NAME);
         selectOption();
     }
-    public static void loadData() {
-        Path inputPath = Paths.get("tasks.csv");
-        int lineNumber = 0;
+    public static String[][] loadData(String fileName) {
+        Path inputPath = Paths.get(fileName);
+        String[][] tab = null;
+        if (!Files.exists(inputPath)) {
+            System.out.println("File not exist.");
+            System.exit(0);
+        }
         try {
-            for (String line : Files.readAllLines(inputPath)) {
-                lineNumber++;
-            }
-            tasks = new String[lineNumber][];
-            lineNumber = 0;
-            for (String line : Files.readAllLines(inputPath)) {
-                tasks[lineNumber] = line.split(",");
-                lineNumber++;
+            List<String> strings = Files.readAllLines(inputPath);
+            tab = new String[strings.size()][];
+            for (int i = 0; i < strings.size(); i++) {
+                tab[i] = strings.get(i).split(",");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return tab;
     }
     public static void selectOption() {
         Scanner scan = new Scanner(System.in);
         String[] options = {"add", "remove", "list", "exit"};
         String inputOption = "";
         while (!inputOption.equals("exit")) {
-            System.out.println(ConsoleColors.BLUE + "Please select an option:");
+            System.out.println(ConsoleColors.BLUE + "Please select an option:" + ConsoleColors.RESET);
             for (String option : options) {
-                System.out.println(ConsoleColors.RESET + option);
+                System.out.println(option);
             }
             inputOption = scan.next();
             switch (inputOption) {
@@ -92,7 +94,7 @@ public class TaskManager {
         }
     }
     public static void exitProgram() {
-        try (FileWriter writer = new FileWriter("tasks.csv", false)) {
+        try (FileWriter writer = new FileWriter(FILE_NAME, false)) {
             for (String[] line : tasks) {
                 writer.append(line[0] + ",");
                 writer.append(line[1] + ",");
