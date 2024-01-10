@@ -50,9 +50,16 @@ public class TaskManager {
             inputOption = scan.next();
             switch (inputOption) {
                 case "add" -> addTask();
-                case "remove" -> removeTask(tasks, getTheNumber());
+                case "remove" -> {
+                    removeTask(tasks, getTheNumber());
+                    System.out.println("Value was successfully deleted.");
+                }
                 case "list" -> showTaskList(tasks);
-                case "exit" -> exitProgram();
+                case "exit" -> {
+                    exitProgram(FILE_NAME, tasks);
+                    System.out.println(ConsoleColors.RED + "Bye, bye.");
+                    System.exit(0);
+                }
                 default -> System.out.println("Please select a correct option.");
             }
         }
@@ -81,20 +88,18 @@ public class TaskManager {
         try {
             if (index < tab.length) {
                 tasks = ArrayUtils.remove(tab, index);
-                System.out.println("Value was successfully deleted.");
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("Element not exist in tab");
         }
     }
     public static int getTheNumber() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.println("Please select number to remove.");
-
-        String n = scanner.nextLine();
+        String n = scan.nextLine();
         while (!isNumberGreaterEqualZero(n)) {
             System.out.println("Incorrect argument passed. Please give number greater or equal 0");
-            n = scanner.nextLine();
+            n = scan.nextLine();
         }
         return Integer.parseInt(n);
     }
@@ -104,16 +109,16 @@ public class TaskManager {
         }
         return false;
     }
-    public static void exitProgram() {
-        try (FileWriter writer = new FileWriter(FILE_NAME, false)) {
-            for (String[] line : tasks) {
-                writer.append(line[0] + ",");
-                writer.append(line[1] + ",");
-                writer.append(line[2] + "\n");
-            }
-            System.out.println(ConsoleColors.RED + "Bye,  bye.");
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void exitProgram(String fileName, String[][] tab) {
+        Path dir = Paths.get(fileName);
+        String[] lines = new String[tasks.length];
+        for (int i = 0; i < tab.length; i++) {
+            lines[i] = String.join(",", tab[i]);
+        }
+        try {
+            Files.write(dir, Arrays.asList(lines));
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
