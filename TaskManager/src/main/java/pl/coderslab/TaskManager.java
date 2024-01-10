@@ -2,6 +2,7 @@ package pl.coderslab;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,10 +17,10 @@ public class TaskManager {
     static final String FILE_NAME = "tasks.csv";
     static String[][] tasks;
     public static void main(String[] args) {
-        tasks = loadData(FILE_NAME);
+        tasks = loadData(FILE_NAME, ",");
         selectOption();
     }
-    public static String[][] loadData(String fileName) {
+    public static String[][] loadData(String fileName, String separator) {
         Path inputPath = Paths.get(fileName);
         String[][] tab = null;
         if (!Files.exists(inputPath)) {
@@ -30,7 +31,7 @@ public class TaskManager {
             List<String> strings = Files.readAllLines(inputPath);
             tab = new String[strings.size()][];
             for (int i = 0; i < strings.size(); i++) {
-                tab[i] = strings.get(i).split(",");
+                tab[i] = strings.get(i).split(separator);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,8 +50,8 @@ public class TaskManager {
             inputOption = scan.next();
             switch (inputOption) {
                 case "add" -> addTask();
-                case "remove" -> removeTask();
-                case "list" -> showTaskList();
+                case "remove" -> removeTask(tasks, getTheNumber());
+                case "list" -> showTaskList(tasks);
                 case "exit" -> exitProgram();
                 default -> System.out.println("Please select a correct option.");
             }
@@ -67,31 +68,41 @@ public class TaskManager {
         System.out.println("Is your task is important (true/false):");
         tasks[tasks.length - 1][2] = scan.nextLine();
     }
-    public static void showTaskList() {
-        for (int i = 0; i < tasks.length; i++) {
-            System.out.println(i + " : " + tasks[i][0] + " " + tasks[i][1] + " " + tasks[i][2]);
+    public static void showTaskList(String[][] tab) {
+        for (int i = 0; i < tab.length; i++) {
+            System.out.print(i + " : ");
+            for (int j = 0; j < tab[i].length; j++) {
+                System.out.print(tab[i][j] + " ");
+            }
+            System.out.println();
         }
     }
-    public static void removeTask() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Please select number to remove:");
-        int taskNumber = -1;
-        while (taskNumber < 0) {
-            while (!scan.hasNextInt()) {
-                System.out.println("Incorrect argument passed. Please give number greater or equal 0:");
-                scan.next();
-            }
-            taskNumber = scan.nextInt();
-            if (taskNumber < 0) {
-                System.out.println("Incorrect argument passed. Please give number greater or equal 0:");
-            }
-        }
+    public static void removeTask(String[][] tab, int index) {
         try {
-            tasks = ArrayUtils.remove(tasks, taskNumber);
-            System.out.println("Value was successfully deleted.");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+            if (index < tab.length) {
+                tasks = ArrayUtils.remove(tab, index);
+                System.out.println("Value was successfully deleted.");
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Element not exist in tab");
         }
+    }
+    public static int getTheNumber() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please select number to remove.");
+
+        String n = scanner.nextLine();
+        while (!isNumberGreaterEqualZero(n)) {
+            System.out.println("Incorrect argument passed. Please give number greater or equal 0");
+            n = scanner.nextLine();
+        }
+        return Integer.parseInt(n);
+    }
+    public static boolean isNumberGreaterEqualZero(String input) {
+        if (NumberUtils.isParsable(input)) {
+            return Integer.parseInt(input) >= 0;
+        }
+        return false;
     }
     public static void exitProgram() {
         try (FileWriter writer = new FileWriter(FILE_NAME, false)) {
