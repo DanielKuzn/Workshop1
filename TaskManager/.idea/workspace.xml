@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39f9c939-7cbc-42b9-9977-d4d73a0effbc" name="Changes" comment="Improved removing method which was divided into smaller methods">
+    <list default="true" id="39f9c939-7cbc-42b9-9977-d4d73a0effbc" name="Changes" comment="Removed non-used libraries">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/coderslab/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/coderslab/TaskManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +21,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DanielKuzn"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="67b20d87-4974-434a-8da0-d305c82f84dd" />
+        <option name="url" value="git@github.com:DanielKuzn/Workshop1.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -99,7 +112,23 @@
       <option name="project" value="LOCAL" />
       <updated>1704892896602</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Improved saving file method">
+      <option name="closed" value="true" />
+      <created>1704894561293</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704894561293</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Removed non-used libraries">
+      <option name="closed" value="true" />
+      <created>1704894827311</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1704894827311</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -107,7 +136,9 @@
     <MESSAGE value="Added functions for removing and saving tasks" />
     <MESSAGE value="Improved loading data method" />
     <MESSAGE value="Improved removing method which was divided into smaller methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved removing method which was divided into smaller methods" />
+    <MESSAGE value="Improved saving file method" />
+    <MESSAGE value="Removed non-used libraries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed non-used libraries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
