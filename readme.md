@@ -50,8 +50,8 @@ Task 2,2024-01-20,false
 
 ## Contributing
 
-Feel free to contribute to the project by opening issues or creating pull requests. Make sure to follow the [code of conduct](code_of_conduct.md).
+Feel free to contribute to the project by opening issues or creating pull requests. Make sure to follow the [code of conduct](https://github.com/DanielKuzn/Workshop1/blob/main/code_of_conduct.md).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/licensing-a-repository) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/DanielKuzn/Workshop1/blob/main/LICENSE)) file for details.
